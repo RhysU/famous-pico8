@@ -1,6 +1,6 @@
 SHELL=/bin/bash
-OFF_L=33
-OFF_T=33
+OFF_L=32
+OFF_T=32
 SEP_L=64
 SEP_T=64
 famous_sprites.png: famous.png Makefile
@@ -113,3 +113,6 @@ famous_sprites.png: famous.png Makefile
 	convert $< -crop 40x40+$$(( $(OFF_L) + 9 * $(SEP_L) ))+$$(( $(OFF_T) + 7 * $(SEP_T) )) famous-97.png
 	convert $< -crop 40x40+$$(( $(OFF_L) + 9 * $(SEP_L) ))+$$(( $(OFF_T) + 8 * $(SEP_T) )) famous-98.png
 	convert $< -crop 40x40+$$(( $(OFF_L) + 9 * $(SEP_L) ))+$$(( $(OFF_T) + 9 * $(SEP_T) )) famous-99.png
+	
+	montage famous-{0,1,2,3,4,5,7,8,9}{0,1,2,3,4,5,6,7,8,9}.png -tile 16x -geometry '8x8>+0+0' -background black $@
+	convert $@ -gravity northwest -extent 128x128 $@
