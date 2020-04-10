@@ -9,11 +9,11 @@ famous.p8: famous_sprites.png empty.p8 Makefile
 famous-indexed.png: famous-original.png colors.png Makefile
 	convert $< +dither -remap colors.png $@
 
-OFF_L=32
-OFF_T=32
+OFF_L=31
+OFF_T=31
 SEP_L=64
 SEP_T=64
-SHAPE=40x40
+SHAPE=41x41
 famous_sprites.png: famous-indexed.png colors.png Makefile
 	convert $< -crop $(SHAPE)+$$(( $(OFF_L) + 0 * $(SEP_L) ))+$$(( $(OFF_T) + 0 * $(SEP_T) )) famous-00.png
 	convert $< -crop $(SHAPE)+$$(( $(OFF_L) + 0 * $(SEP_L) ))+$$(( $(OFF_T) + 1 * $(SEP_T) )) famous-01.png
