@@ -1,10 +1,13 @@
 SHELL=/bin/bash
 
-all: famous_sprites.png
+all: famous.p8
+
+famous.p8: famous_sprites.png empty.p8 Makefile
+	cp empty.p8 $@
+	./pico2png.pl $< || rm $@
 
 famous-indexed.png: famous-original.png colors.png Makefile
 	convert $< +dither -remap colors.png $@
-
 
 OFF_L=32
 OFF_T=32
