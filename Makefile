@@ -1,9 +1,16 @@
 SHELL=/bin/bash
+
+all: famous_sprites.png
+
+famous-indexed.png: famous-original.png colors.png Makefile
+	convert $< +dither -remap colors.png $@
+
+
 OFF_L=32
 OFF_T=32
 SEP_L=64
 SEP_T=64
-famous_sprites.png: famous.png Makefile
+famous_sprites.png: famous-indexed.png colors.png Makefile
 	convert $< -crop 40x40+$$(( $(OFF_L) + 0 * $(SEP_L) ))+$$(( $(OFF_T) + 0 * $(SEP_T) )) famous-00.png
 	convert $< -crop 40x40+$$(( $(OFF_L) + 0 * $(SEP_L) ))+$$(( $(OFF_T) + 1 * $(SEP_T) )) famous-01.png
 	convert $< -crop 40x40+$$(( $(OFF_L) + 0 * $(SEP_L) ))+$$(( $(OFF_T) + 2 * $(SEP_T) )) famous-02.png
@@ -116,3 +123,5 @@ famous_sprites.png: famous.png Makefile
 	
 	montage famous-{0,1,2,3,4,5,7,8,9}{0,1,2,3,4,5,6,7,8,9}.png -tile 16x -geometry '8x8>+0+0' -background black $@
 	convert $@ -gravity northwest -extent 128x128 $@
+	convert $@ +dither -remap colors.png $@
+	convert $@ txt:- | cut '-d#' -f 2 | cut '-d ' -f 1 | sort -u | nl
